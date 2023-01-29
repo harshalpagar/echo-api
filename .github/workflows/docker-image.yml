@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Build & Push Action
+      # You may pin to the exact commit or the version.
+      # uses: mr-smithers-excellent/docker-build-push@0e68818ea37ba7728f417f03a58e06e68d9d2592
+      uses: mr-smithers-excellent/docker-build-push@v5.9
+      with:
+        # Name of the Docker image
+        image: echo-api
+        # Tags override for Docker image
+        tags: $(date +%s)
+        # Target Docker registry
+        registry: acrbifrost.azurecr.io
+        # Docker registry username
+        username: ${{ secrets.ACRBIFROST_USERNAME }}
+        # Docker registry password
+        password: ${{ secrets.ACRBIFROST_PASSWORD }}   
+        
