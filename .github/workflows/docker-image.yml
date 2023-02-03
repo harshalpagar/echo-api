@@ -28,11 +28,15 @@ jobs:
         # Name of the Docker image
         image: echo-api
         # Tags override for Docker image
-        tags: $(date +%s)
+        tags: latest
         # Target Docker registry
-        registry: acrbifrost.azurecr.io
+        registry: harshalu15.azurecr.io
         # Docker registry username
         username: ${{ secrets.ACRBIFROST_USERNAME }}
         # Docker registry password
         password: ${{ secrets.ACRBIFROST_PASSWORD }}   
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'myapp'
+        images: 'harshalu15.azurecr.io/echo-api:latest'
         
